@@ -31,45 +31,37 @@ $(document).ready(function () {
            NAVBAR CLIQUABLE
         ========================= */
 
-  $(".").click(function () {
-    /*
-                Active le lien
-            */
+  $(".navLink").click(function () {
+    /*Active le lien*/
 
-    $("").removeClass("");
+    $("li").removeClass("activeNav");
 
-    $(this).addClass("");
+    $(this).addClass("activeNav");
 
-    /*
-                Récupère la page
-            */
+    /* Récupère la page*/
 
-    let page = $(this).data("");
+    let page = $(this).data("page");
 
-    /*
-                Cache toutes les pages
-            */
+    /*Cache toutes les pages*/
 
-    $("").removeClass("").hide();
+    $(".page").removeClass("activeNav").hide();
 
-    /*
-                Affiche la page cliquée
-            */
+    /*Affiche la page cliquée*/
 
     $("#" + page)
       .fadeIn(500)
 
-      .addClass("");
+      .addClass("activePage");
   });
 
   /* =========================
            TOGGLE MENU
         ========================= */
 
-  $("").click(function () {
-    $("").animate(
+  $("#toggleMenu").click(function () {
+    $(".sidebar").animate(
       {
-        width: "",
+        width: "toggle",
       },
       500,
     );
@@ -80,7 +72,7 @@ $(document).ready(function () {
         ========================= */
 
   $(".counter").each(function () {
-    let target = $(this).data("");
+    let target = $(this).data("target");
 
     let counter = $(this);
 
@@ -110,17 +102,17 @@ $(document).ready(function () {
         ========================= */
 
   setInterval(function () {
-    $("")
+    $(".c1")
       .animate(
         {
-          top: "",
+          top: "40px",
         },
         1000,
       )
 
       .animate(
         {
-          top: "",
+          top: "20px",
         },
         1000,
       );
@@ -128,14 +120,14 @@ $(document).ready(function () {
     $(".c2")
       .animate(
         {
-          right: "",
+          right: "200px",
         },
         1000,
       )
 
       .animate(
         {
-          right: "",
+          right: "180px",
         },
         1000,
       );
@@ -143,16 +135,35 @@ $(document).ready(function () {
     $(".c3")
       .animate(
         {
-          left: "",
+          left: "60px",
         },
         1000,
       )
 
       .animate(
         {
-          left: "",
+          left: "40px",
         },
         1000,
       );
   }, 2000);
+
+  $("#notif-btn").click(function () {
+    $('<div class="notif">Notification envoyée</div>')
+      .hide()
+      .insertAfter("#notif-btn")
+      .slideDown(300)
+      .delay(2000)
+      .slideUp(500, function () {
+        $(this).remove();
+      });
+  });
+
+  $("#disable-btn").click(function () {
+    $("#nom-input").attr("disabled", true);
+  });
+
+  $("#enable-btn").click(function () {
+    $("#nom-input").removeAttr("disabled");
+  });
 });

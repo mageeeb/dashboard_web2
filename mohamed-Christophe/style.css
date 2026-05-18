@@ -4,16 +4,9 @@
       padding: 0;
   }
 
-  body {
-      font-family: "Segoe UI", Roboto, sans-serif;
-      background: #fff;
-      color: #111;
-
-  }
-
   .dark {
-      background-color: #111 !important;
-      color: white !important;
+      background-color: #111 ;
+      /* color: white ; */
   }
 
   header {
