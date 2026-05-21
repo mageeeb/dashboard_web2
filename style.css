@@ -1,5 +1,5 @@
 /********************* GENERAL ON PAGE ***********************/
-
+// TEST 
 *{
     margin:0;
     padding:0;
@@ -312,6 +312,7 @@ input[type=text]{
 .dark{
     background-color: black;
 
+    /* Change l'image du bouton dark mode  */
     .btn-tggl{
         width: 50px;
         height: 50px;
