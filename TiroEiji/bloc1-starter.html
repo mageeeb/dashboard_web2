@@ -280,25 +280,25 @@ let isLoggedIn = false;
    Référence MDN : https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Regular_expressions
 ============================================================ */
 const REGEX = {
-
-    // TODO 1 — Regex username
-    // Règle : entre 3 et 16 caractères
-    //         uniquement lettres (a-z, A-Z), chiffres, underscore _ ou tiret -
-    // Indice : ^ = début, $ = fin, [groupe]{min,max}
-    username: /REMPLACE_MOI/,
-
-    // TODO 2 — Regex email
-    // Règle : qqch @ qqch . qqch (au moins 2 lettres pour le domaine)
-    // Indice : \. pour un vrai point, + = un ou plusieurs, {2,} = au moins 2
-    email: /REMPLACE_MOI/,
-
-    // TODO 3 — Regex password (la plus complexe !)
-    // Règle : 8 caractères minimum
-    //         au moins 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial
-    // Indice : (?=...) = lookahead positif (vérifie sans consommer)
-    //          (?=.*[A-Z]) = doit contenir au moins une majuscule quelque part
-    password: /REMPLACE_MOI/,
-
+ 
+            // TODO 1 — Regex username
+            // Règle : entre 3 et 16 caractères
+            //         uniquement lettres (a-z, A-Z), chiffres, underscore _ ou tiret -
+            // Indice : ^ = début, $ = fin, [groupe]{min,max}
+            username: /^[a-zA-Z0-9-_]{3,16}$/,
+ 
+            // TODO 2 — Regex email
+            // Règle : qqch @ qqch . qqch (au moins 2 lettres pour le domaine)
+            // Indice : \. pour un vrai point, + = un ou plusieurs, {2,} = au moins 2
+            email: /^[a-zA-Z0-9-_\.]+@[a-zA-Z0-9-_\.]+\.[a-zA-Z0-9-_\.]{2,}$/,
+ 
+            // TODO 3 — Regex password (la plus complexe !)
+            // Règle : 8 caractères minimum
+            //         au moins 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial
+            // Indice : (?=...) = lookahead positif (vérifie sans consommer)
+            //          (?=.*[A-Z]) = doit contenir au moins une majuscule quelque part
+            password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[?*=.@#$%!^":,:;<'>+-_]).{8,}$/,
+ 
 };
 
 
@@ -313,6 +313,8 @@ const REGEX = {
 //   4. Cacher tous les formulaires, afficher le bon avec fadeIn(300)
 
 $(".B").on("click", function() {
+
+    let target = $(this).data("form");
     
     $(".tab").toggleClass("active");
     $(".signupForm").hide("", function(){
@@ -323,6 +325,7 @@ $(".B").on("click", function() {
 
 $(".A").on("click", function() {
     
+    let target = $(this).data("form");
     $(".tab").toggleClass("active");
     $(".loginForm").hide("", function(){
         $(".signupForm").show("");
@@ -346,7 +349,7 @@ $(".A").on("click", function() {
 $("#signup-username").on("keyup", function() {
 
     // Ton code ici ↓
-
+   
 });
 
 
@@ -360,7 +363,19 @@ $("#signup-username").on("keyup", function() {
 $("#signup-email").on("keyup", function() {
 
     // Ton code ici ↓
+const val = $(this).val();
+const field = $("#f-email");
+field.removeClass("ok error");
 
+if (val.lenght === 0){
+    field.find(".hint").text("Format email standard requis");
+}else if (REGEX.email.test(val)){
+    field.addClass('ok');
+    field.find(".hint").text("email valide");
+}else {
+    field.addClass("error");
+    field.find('.hint').text('Format invalide - ex: ^re,omédomaine.com');
+ c }
 });
 
 
@@ -385,7 +400,17 @@ $("#signup-email").on("keyup", function() {
 $("#signup-password").on("keyup", function() {
 
     // Ton code ici ↓
+const val = $(this).val();
+const field = $("#f-email");
 
+//calculer le score 
+let score = 0;
+if (val.length >= 8) score ++;
+if (REGEX.hasLower.test(val)) && if (REGEX.hasUpper.test(val)) score ++;
+if (REGEX.hasDigit.test(val)) score++;
+if (REGEX.hasSpecial.test(val)) score++;
+
+//
 });
 
 
@@ -405,6 +430,22 @@ $("#signup-password").on("keyup", function() {
 $("#signupBtn").on("click", function() {
 
     // Ton code ici ↓
+    const username = $('signup-username').val();
+    const email = $('signup-email').val();
+    const password = $('signup-password').val();
+    const btn = $(this);
+
+    // Validation finale
+    const error = [];
+    if (!REGEX.username.test(username)) errors.push("Nom d'utilisateur invalide");
+    if (!REGEX.email.test(email)) errors.push("Email invalide");
+    if (!REGEX.password.test(password)) errors.push("Mot de passe trop faible");
+
+    // Affichage des erre    urs
+    $("signupFlash")
+        .removeClass('ok').addClass("err")
+        .text(" ! " + error.join(", "))
+        .slideDown(300);  
 
 });
 
@@ -423,6 +464,11 @@ $("#signupBtn").on("click", function() {
 $("#loginBtn").on("click", function() {
 
     // Ton code ici ↓
+const email = $('#login-email').val();
+const $btn = $(this);
+
+    // pour le username
+
 
 });
 
