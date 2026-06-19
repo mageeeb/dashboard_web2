@@ -305,8 +305,19 @@ const visitedPages = new Set(["homePage"]); // Home visitée par défaut
 $(".navLink").on("click", function() {
 
     // Ton code ici ↓
-
+    $(".navLink").removeClass("activeNav");
+    let nawdata = $(this).data("page");
+    $("#homePage, #dashboardPage, #coursePage, #profilePage, #settingsPage").hide();
+    $("#" + nawdata).fadeIn(400);
+    $("#toast").text(nawdata).show().delay(1800).fadeOut(400);
+    $(this).addClass("activeNav");
+ 
+    visitedPages.add(nawdata);
+    let pct = visitedPages.size / 5 * 100;
+    $("#progressFill").animate({ width: pct + "%" }, 400);
+ 
 });
+   
 
 
 /* ============================================================
@@ -324,6 +335,11 @@ $(".navLink").on("click", function() {
 $("#toggleMenu").on("click", function() {
 
     // Ton code ici ↓
+    // V1
+    // $(".sidebar").animate({width: "toggle"}, 300);
+
+    //V2
+    $(".sidebar").toggle("");
 
 });
 
