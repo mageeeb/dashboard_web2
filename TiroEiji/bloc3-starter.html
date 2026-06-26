@@ -342,7 +342,19 @@ setInterval(updateClock, 60000);
 $(".counter").each(function() {
 
     // Ton code ici ↓
-
+    $(".statBox").each(function(){
+        let $el =  $(this);
+        $({ n: 0 }).animate({ n: target }, {
+               duration: 1500,
+               easing: "swing",
+               step: function() {
+                   $el.text( Math.floor(this.n).toLocaleString("fr-FR") );
+               },
+               complete: function() {
+                   $el.text( target.toLocaleString("fr-FR") );
+               }
+        });
+    });
 });
 
 
